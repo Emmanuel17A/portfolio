@@ -135,84 +135,127 @@
 <section class="section-pad border-t border-obsidian-border">
     <div class="container-site">
         <div class="section-eyebrow reveal">Open Source</div>
-        <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
-            <div>
-                <h2 class="font-display text-display-md text-sand-100 reveal">Code on GitHub</h2>
-                @if(!empty($github['api_ok']))
-                    <p class="text-sand-500 text-sm font-mono mt-2 reveal">
-                        Emmanuel17A · {{ $github['public_repos'] }} public repositories + private work
-                    </p>
-                @endif
-            </div>
-            <a href="https://github.com/Emmanuel17A" target="_blank" rel="noopener" class="btn-outline reveal">
-                View my work on GitHub &rarr;
-            </a>
+        <div class="mb-12">
+            <h2 class="font-display text-display-md text-sand-100 reveal">Code on GitHub</h2>
+            <p class="text-sand-500 text-sm font-mono mt-2 reveal">
+                {{ $github['stats_line'] ?? '13 public · 8 private · 21 repositories total' }}
+            </p>
         </div>
 
-        @if(!empty($github['api_ok']))
-            {{-- Stats row --}}
-            <div class="flex flex-wrap items-center gap-8 mb-10 pb-8 border-b border-obsidian-border reveal">
-                <div>
-                    <p class="font-display text-3xl text-sand-100">{{ $github['public_repos'] }}</p>
-                    <p class="text-xs uppercase tracking-widest text-sand-600 mt-1">Public Repos</p>
+        {{-- SUBSECTION A — Public Repositories (from API) --}}
+        <div class="mb-14">
+            <h3 class="font-display text-2xl text-sand-100 mb-6 reveal">Public Work</h3>
+            @if(!empty($github['api_ok']) && !empty($github['recent_repos']))
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+                    @foreach($github['recent_repos'] as $repo)
+                    <div class="service-card flex flex-col justify-between">
+                        <div class="service-card-accent"></div>
+                        <div>
+                            <div class="flex items-start justify-between gap-3 mb-2">
+                                <h4 class="font-display text-xl text-sand-100 leading-tight break-words">{{ $repo['name'] }}</h4>
+                                @if(($repo['stars'] ?? 0) > 0)
+                                    <span class="text-xs font-mono text-sand-500 flex-shrink-0">&starf; {{ $repo['stars'] }}</span>
+                                @else
+                                    <span class="text-xs font-mono text-sand-700 flex-shrink-0">&star; 0</span>
+                                @endif
+                            </div>
+                            <p class="text-sand-500 text-sm leading-relaxed mb-4">
+                                {{ $repo['description'] ? \Illuminate\Support\Str::limit($repo['description'], 80) : 'No description provided.' }}
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-obsidian-border mt-2">
+                            @if(!empty($repo['language']))
+                                <span class="skill-tag text-xs py-0.5 px-2">{{ $repo['language'] }}</span>
+                            @else
+                                <span class="text-xs font-mono text-sand-700">Code</span>
+                            @endif
+                            <a href="{{ $repo['url'] }}" target="_blank" rel="noopener" class="text-xs font-mono text-sand-400 hover:text-sand-100 transition-colors">
+                                View &rarr;
+                            </a>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
-                <div>
-                    <p class="font-display text-3xl text-sand-100">{{ $github['followers'] }}</p>
-                    <p class="text-xs uppercase tracking-widest text-sand-600 mt-1">Followers</p>
+            @else
+                <div class="reveal">
+                    <a href="https://github.com/Emmanuel17A" target="_blank" rel="noopener" class="text-sm font-mono text-sand-300 hover:text-sand-100 transition-colors">
+                        View public repositories on GitHub &rarr;
+                    </a>
                 </div>
-                @if(!empty($github['top_langs']))
-                <div>
-                    <p class="text-xs uppercase tracking-widest text-sand-600 mb-2">Top Languages</p>
-                    <div class="flex flex-wrap gap-2">
-                        @foreach($github['top_langs'] as $lang)
-                            <span class="skill-tag text-xs">{{ $lang }}</span>
-                        @endforeach
+            @endif
+        </div>
+
+        {{-- SUBSECTION B — Private / Featured Work --}}
+        <div class="mb-12">
+            <h3 class="font-display text-2xl text-sand-100 mb-1 reveal">Private &amp; Academic Work</h3>
+            <p class="text-sand-500 text-sm mb-6 reveal">Selected private repositories included with permission</p>
+
+            {{-- Featured card: Unibridge --}}
+            <div class="service-card border-sand-600/30 relative overflow-hidden mb-6 reveal">
+                <!-- accent bar at top -->
+                <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-sand-700 to-sand-400"></div>
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge badge-active text-xs">Final Year Project</span>
+                            <span class="skill-tag text-xs">Dart · Flutter</span>
+                        </div>
+                        <h3 class="font-display text-2xl text-sand-100 mb-2">Unibridge</h3>
+                        <p class="text-sand-400 text-sm leading-relaxed">
+                            A university student platform connecting students, resources, and campus 
+                            services. Developed as the capstone final year project at The Copperbelt 
+                            University, School of ICT.
+                        </p>
+                        <div class="mt-4 flex items-center gap-3">
+                            <span class="text-xs text-sand-600 font-mono">1 fork</span>
+                            <span class="text-xs text-sand-700">·</span>
+                            <span class="text-xs text-sand-600 font-mono">Updated Sep 2025</span>
+                        </div>
                     </div>
                 </div>
-                @endif
             </div>
 
-            {{-- Recent repositories --}}
-            @if(!empty($github['recent_repos']))
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
-                @foreach($github['recent_repos'] as $repo)
+            {{-- Remaining 4 private repos as 2x2 grid --}}
+            @php
+                $otherPrivateRepos = collect($github['private_repos_data'] ?? [])->filter(fn($r) => empty($r['featured']));
+            @endphp
+            <div class="grid sm:grid-cols-2 gap-4 reveal-stagger">
+                @foreach($otherPrivateRepos as $repo)
                 <div class="service-card flex flex-col justify-between">
                     <div class="service-card-accent"></div>
                     <div>
-                        <div class="flex items-start justify-between gap-3 mb-2">
-                            <h3 class="font-display text-xl text-sand-100 leading-tight">{{ $repo['name'] }}</h3>
-                            @if(($repo['stars'] ?? 0) > 0)
-                                <span class="text-xs font-mono text-sand-500 flex-shrink-0">&starf; {{ $repo['stars'] }}</span>
-                            @else
-                                <span class="text-xs font-mono text-sand-700 flex-shrink-0">&star; 0</span>
-                            @endif
-                        </div>
-                        <p class="text-sand-500 text-sm leading-relaxed mb-4">
-                            {{ $repo['description'] ? \Illuminate\Support\Str::limit($repo['description'], 80) : 'No description provided.' }}
-                        </p>
+                        <h4 class="font-mono text-sand-200 text-sm mb-2 break-all">{{ $repo['name'] }}</h4>
+                        <p class="text-sand-500 text-xs leading-relaxed mb-4">{{ $repo['description'] }}</p>
                     </div>
                     <div class="flex items-center justify-between pt-3 border-t border-obsidian-border mt-2">
-                        @if(!empty($repo['language']))
-                            <span class="skill-tag text-xs py-0.5 px-2">{{ $repo['language'] }}</span>
-                        @else
-                            <span class="text-xs font-mono text-sand-700">Code</span>
-                        @endif
-                        <a href="{{ $repo['url'] }}" target="_blank" rel="noopener" class="text-xs font-mono text-sand-400 hover:text-sand-100 transition-colors">
-                            View &rarr;
-                        </a>
+                        <span class="skill-tag text-xs py-0.5 px-2">{{ $repo['language'] }}</span>
+                        <span class="text-sand-700 text-xs font-mono">{{ $repo['updated'] }}</span>
                     </div>
                 </div>
                 @endforeach
             </div>
-            @endif
-        @else
-            <div class="service-card max-w-xl reveal">
-                <p class="text-sand-400 text-sm mb-4">Explore my public repositories and open-source work directly on GitHub.</p>
-                <a href="https://github.com/Emmanuel17A" target="_blank" rel="noopener" class="text-sm font-mono text-sand-300 hover:text-sand-100 transition-colors">
-                    View my work on GitHub &rarr;
-                </a>
+
+            <p class="text-sand-700 text-xs font-mono mt-4 reveal">
+                + 3 additional private repositories not shown
+            </p>
+        </div>
+
+        {{-- STATS ROW (below both subsections) --}}
+        @php
+            $displayLangs = !empty($github['top_langs']) ? $github['top_langs'] : ['PHP', 'Python', 'Dart', 'JavaScript', 'C#'];
+        @endphp
+        <div class="pt-8 border-t border-obsidian-border reveal">
+            <div class="flex flex-wrap items-center gap-3">
+                <span class="skill-tag">13 Public</span>
+                <span class="skill-tag">8 Private</span>
+                <span class="skill-tag">21 Total</span>
+                <span class="skill-tag" title="{{ implode(', ', $displayLangs) }}">5 Languages ({{ implode(', ', array_slice($displayLangs, 0, 5)) }})</span>
             </div>
-        @endif
+
+            <a href="https://github.com/Emmanuel17A" target="_blank" rel="noopener" class="btn-outline mt-6 inline-flex">
+                View GitHub Profile ↗
+            </a>
+        </div>
     </div>
 </section>
 

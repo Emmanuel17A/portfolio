@@ -28,6 +28,27 @@ class DatabaseSeeder extends Seeder
         // Sample projects (replace with your real work)
         $projects = [
             [
+                'name'         => 'Unibridge',
+                'slug'         => 'unibridge',
+                'description'  => 'A university student platform connecting students with resources, campus services, and institutional information. Built as a final year project at The Copperbelt University.',
+                'problem'      => 'University students struggle to access campus information, connect with peers, and navigate institutional resources through a single unified platform.',
+                'solution'     => 'Unibridge is a cross-platform mobile application built with Flutter and Dart that centralises student resources, campus services, and peer connectivity into one intuitive app.',
+                'category'     => 'mobile',
+                'technologies' => ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Mobile Development'],
+                'features'     => [
+                    'Cross-platform mobile app (Android & iOS) built with Flutter',
+                    'Student resource and campus information hub',
+                    'Peer connectivity and communication features',
+                    'Institutional service integration',
+                    'Clean, modern mobile UI designed for student workflows',
+                ],
+                'github_url'   => 'https://github.com/Emmanuel17A/unibridge',
+                'live_url'     => null,
+                'status'       => 'dev',
+                'is_featured'  => true,
+                'sort_order'   => 1,
+            ],
+            [
                 'name'         => 'Inventory Management System',
                 'slug'         => 'inventory-management-system',
                 'description'  => 'A full-featured inventory and order management system built for Pixel & Galaxy Lab to track stock, orders, and suppliers in real time.',
@@ -83,6 +104,27 @@ class DatabaseSeeder extends Seeder
                 'status'       => 'live',
                 'is_featured'  => true,
                 'sort_order'   => 3,
+            ],
+            [
+                'name'         => 'Church Organisation Application',
+                'slug'         => 'church-organisation-application',
+                'description'  => 'A church organisation and member management application built for the Seventh-day Adventist church, designed to be adaptable for other Christian denominations.',
+                'problem'      => 'Church organisations manage member records, attendance, announcements, and event scheduling through fragmented manual systems.',
+                'solution'     => 'A PHP web application that centralises church member management, event scheduling, and internal communications in one platform.',
+                'category'     => 'web',
+                'technologies' => ['PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
+                'features'     => [
+                    'Church member registration and management',
+                    'Event and service scheduling',
+                    'Announcement and communications board',
+                    'Adaptable for multiple Christian denominations',
+                    'Role-based access for administrators and members',
+                ],
+                'github_url'   => 'https://github.com/Emmanuel17A/Church_Application',
+                'live_url'     => null,
+                'status'       => 'dev',
+                'is_featured'  => false,
+                'sort_order'   => 5,
             ],
         ];
 

@@ -1,9 +1,27 @@
 @extends('layouts.app')
 
 @section('title', 'Emmanuel Mwangata — Software Developer')
-@section('description', 'Full-stack software developer building practical, modern web applications. Based in Zambia. Available for freelance projects.')
+@section('description', \App\Models\SiteSetting::get('meta_description', 'Full-stack software developer building practical, modern web applications. Based in Zambia. Available for freelance projects.'))
 
 @section('content')
+
+@php
+    $availability = \App\Models\SiteSetting::get('availability', 'available');
+    $availDotClass = match($availability) {
+        'busy'        => 'bg-amber-500',
+        'unavailable' => 'bg-red-500',
+        default       => 'bg-green-500',
+    };
+    $availLabel = match($availability) {
+        'busy'        => 'Busy (limited availability)',
+        'unavailable' => 'Unavailable for work',
+        default       => 'Available for work',
+    };
+    $statYears        = \App\Models\SiteSetting::get('stat_years', '4');
+    $statProjects     = \App\Models\SiteSetting::get('stat_projects', '20');
+    $statTechnologies = \App\Models\SiteSetting::get('stat_technologies', '8');
+    $tagline          = \App\Models\SiteSetting::get('tagline', 'I build software that works.');
+@endphp
 
 {{-- ============================================================
      HERO
@@ -25,12 +43,13 @@
                 <div class="section-eyebrow hero-meta">
                     <span class="font-mono text-xs text-sand-500">Software Developer</span>
                     <span class="inline-flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse-slow"></span>
-                        <span class="text-xs text-sand-600">Available for work</span>
+                        <span class="w-1.5 h-1.5 rounded-full {{ $availDotClass }} animate-pulse-slow"></span>
+                        <span class="text-xs text-sand-600">{{ $availLabel }}</span>
                     </span>
                 </div>
 
                 {{-- Hero title --}}
+                @if($tagline === 'I build software that works.')
                 <h1 class="hero-title font-display text-display-xl text-sand-100 mb-6 leading-none" aria-label="I build software that works. I design systems that last.">
                     <span class="word">
                         <span class="word-inner">I&nbsp;build</span>
@@ -46,6 +65,15 @@
                         <span class="word-inner text-sand-400">works.</span>
                     </span>
                 </h1>
+                @else
+                <h1 class="hero-title font-display text-display-xl text-sand-100 mb-6 leading-none" aria-label="{{ $tagline }}">
+                    @foreach(explode(' ', $tagline) as $word)
+                    <span class="word">
+                        <span class="word-inner {{ $loop->last ? 'text-sand-400' : '' }}">{{ $word }}&nbsp;</span>
+                    </span>
+                    @endforeach
+                </h1>
+                @endif
 
                 {{-- Subtitle --}}
                 <p class="hero-sub text-sand-400 text-lg leading-relaxed mb-10 max-w-lg">
@@ -69,19 +97,19 @@
                 <div class="hero-meta mt-14 flex flex-wrap gap-10">
                     <div>
                         <p class="stat-number">
-                            <span data-counter data-target="4" data-suffix="+">4+</span>
+                            <span data-counter data-target="{{ $statYears }}" data-suffix="+">{{ $statYears }}+</span>
                         </p>
                         <p class="text-xs text-sand-600 uppercase tracking-wider mt-1">Years Building</p>
                     </div>
                     <div>
                         <p class="stat-number">
-                            <span data-counter data-target="20" data-suffix="+">20+</span>
+                            <span data-counter data-target="{{ $statProjects }}" data-suffix="+">{{ $statProjects }}+</span>
                         </p>
                         <p class="text-xs text-sand-600 uppercase tracking-wider mt-1">Projects Shipped</p>
                     </div>
                     <div>
                         <p class="stat-number">
-                            <span data-counter data-target="8" data-suffix="+">8+</span>
+                            <span data-counter data-target="{{ $statTechnologies }}" data-suffix="+">{{ $statTechnologies }}+</span>
                         </p>
                         <p class="text-xs text-sand-600 uppercase tracking-wider mt-1">Technologies</p>
                     </div>

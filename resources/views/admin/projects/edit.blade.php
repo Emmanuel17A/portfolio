@@ -16,6 +16,12 @@
                 @error('name')<p class="text-xs text-red-400 mt-1">{{ $message }}</p>@enderror
             </div>
 
+            <div class="form-field sm:col-span-2">
+                <label for="slug" class="form-label">Slug (read-only)</label>
+                <input type="text" id="slug" class="form-input opacity-60 cursor-not-allowed font-mono text-xs"
+                       value="{{ $project->slug }}" readonly>
+            </div>
+
             <div class="form-field">
                 <label for="category" class="form-label">Category *</label>
                 <select id="category" name="category" class="form-input">

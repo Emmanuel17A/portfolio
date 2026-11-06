@@ -50,7 +50,7 @@
 
             <div>
                 <h2 class="font-display text-2xl text-sand-100 mb-3">Contact</h2>
-                <p>For any privacy-related questions or data deletion requests, contact me at <a href="mailto:futurist@example.com" class="text-sand-300 hover:text-sand-100 transition-colors">futurist@example.com</a>.</p>
+                <p>For any privacy-related questions or data deletion requests, contact me at <a href="mailto:emmanuelmwangata26@gmail.com" class="text-sand-300 hover:text-sand-100 transition-colors">emmanuelmwangata26@gmail.com</a>.</p>
             </div>
         </div>
     </div>

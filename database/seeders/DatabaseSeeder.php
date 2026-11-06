@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\SiteSetting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -11,12 +12,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create admin user
-        User::firstOrCreate(
-            ['email' => 'futurist@example.com'],
+        // Remove old placeholder users if present
+        User::where('email', '!=', 'emmanuelmwangata26@gmail.com')->delete();
+
+        // Create or update admin user
+        User::updateOrCreate(
+            ['email' => 'emmanuelmwangata26@gmail.com'],
             [
-                'name'     => 'Emmanuel Mwangata',
-                'password' => Hash::make('change-this-password'),
+                'name'     => 'Emmanuel M. Mwangata',
+                'password' => Hash::make('Futurist@PGL2026!k9X'),
                 'is_admin' => true,
             ]
         );
@@ -86,6 +90,23 @@ class DatabaseSeeder extends Seeder
             Project::firstOrCreate(
                 ['slug' => $project['slug']],
                 $project
+            );
+        }
+
+        // Seed default site settings
+        $defaultSettings = [
+            'availability'      => 'available',
+            'stat_years'        => '4',
+            'stat_projects'     => '20',
+            'stat_technologies' => '8',
+            'tagline'           => 'I build software that works.',
+            'meta_description'  => 'Full-stack software developer building practical, modern web applications. Based in Zambia. Available for freelance projects.',
+        ];
+
+        foreach ($defaultSettings as $key => $value) {
+            SiteSetting::firstOrCreate(
+                ['key' => $key],
+                ['value' => $value]
             );
         }
     }

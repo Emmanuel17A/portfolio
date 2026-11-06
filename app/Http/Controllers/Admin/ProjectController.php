@@ -31,6 +31,7 @@ class ProjectController extends Controller
 
         $validated['technologies'] = $this->parseTags($validated['technologies'] ?? '');
         $validated['features']     = $this->parseLines($validated['features'] ?? '');
+        $validated['is_featured']  = $request->boolean('is_featured');
         $validated['slug']         = Str::slug($validated['name']);
 
         Project::create($validated);
@@ -54,6 +55,7 @@ class ProjectController extends Controller
 
         $validated['technologies'] = $this->parseTags($validated['technologies'] ?? '');
         $validated['features']     = $this->parseLines($validated['features'] ?? '');
+        $validated['is_featured']  = $request->boolean('is_featured');
 
         $project->update($validated);
 

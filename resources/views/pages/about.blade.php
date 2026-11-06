@@ -91,16 +91,10 @@
                 <h2 class="font-display text-display-md text-sand-100 mb-10 reveal">Academic background</h2>
                 <div class="timeline reveal">
                     <div class="timeline-item">
-                        <p class="text-xs font-mono text-sand-600 mb-1">2021 — Present</p>
+                        <p class="text-xs font-mono text-sand-600 mb-1">2021 – Present</p>
                         <h3 class="font-display text-xl text-sand-100">BSc Computer Science / ICT</h3>
                         <p class="text-sand-400 text-sm mb-2">The Copperbelt University</p>
                         <p class="text-sand-500 text-sm leading-relaxed">School of ICT, final year. Core areas: software engineering, networking, database systems, information security, and systems analysis.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <p class="text-xs font-mono text-sand-600 mb-1">2018 — 2020</p>
-                        <h3 class="font-display text-xl text-sand-100">Secondary Education</h3>
-                        <p class="text-sand-400 text-sm mb-2">[Your School Name]</p>
-                        <p class="text-sand-500 text-sm">High school studies with a focus on sciences and mathematics.</p>
                     </div>
                 </div>
             </div>
@@ -111,20 +105,114 @@
                 <h2 class="font-display text-display-md text-sand-100 mb-10 reveal">Experience</h2>
                 <div class="timeline reveal">
                     <div class="timeline-item">
-                        <p class="text-xs font-mono text-sand-600 mb-1">2022 — Present</p>
-                        <h3 class="font-display text-xl text-sand-100">Founder</h3>
-                        <p class="text-sand-400 text-sm mb-2">Pixel &amp; Galaxy Lab</p>
-                        <p class="text-sand-500 text-sm leading-relaxed">Consumer technology business managing sales, procurement, customer support, and technical advisory services alongside active software development.</p>
+                        <div class="flex items-center gap-2 mb-1">
+                            <p class="text-xs font-mono text-sand-600">June 2026 – Present</p>
+                            <span class="badge badge-active">Current</span>
+                        </div>
+                        <h3 class="font-display text-xl text-sand-100">Software Developer (Part-time / Ongoing)</h3>
+                        <p class="text-sand-400 text-sm mb-2">CovianHive Technologies</p>
+                        <p class="text-sand-500 text-sm leading-relaxed">Contributing to software development projects at CovianHive Technologies, applying full-stack development skills in a professional product environment.</p>
                     </div>
                     <div class="timeline-item">
-                        <p class="text-xs font-mono text-sand-600 mb-1">2023</p>
-                        <h3 class="font-display text-xl text-sand-100">Industrial Attachment</h3>
-                        <p class="text-sand-400 text-sm mb-2">[Organisation Name]</p>
-                        <p class="text-sand-500 text-sm leading-relaxed">Practical exposure to enterprise systems, software development workflows, and professional IT environments.</p>
+                        <p class="text-xs font-mono text-sand-600 mb-1">October 26, 2025 – June 2026</p>
+                        <h3 class="font-display text-xl text-sand-100">Software Developer Intern &rarr; Part-time Developer</h3>
+                        <p class="text-sand-400 text-sm mb-2">Directorate of Information and Communication Technology (DICT)</p>
+                        <p class="text-sand-500 text-sm leading-relaxed">Joined DICT as a software developer intern from October 2025 to March 2026, then continued part-time through June 2026. Worked on internal government software systems, contributed to development workflows, and gained deep exposure to enterprise-grade ICT infrastructure.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <p class="text-xs font-mono text-sand-600 mb-1">2022 – Present</p>
+                        <h3 class="font-display text-xl text-sand-100">Founder &amp; Lead Developer</h3>
+                        <p class="text-sand-400 text-sm mb-2">Pixel &amp; Galaxy Lab</p>
+                        <p class="text-sand-500 text-sm leading-relaxed">Founded and operate a consumer technology business alongside active software development. Responsible for all aspects including procurement, sales, customer support, and technical advisory services. Built internal tooling and customer-facing systems using Laravel and PHP.</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+{{-- GitHub Section --}}
+<section class="section-pad border-t border-obsidian-border">
+    <div class="container-site">
+        <div class="section-eyebrow reveal">Open Source</div>
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+                <h2 class="font-display text-display-md text-sand-100 reveal">Code on GitHub</h2>
+                @if(!empty($github['api_ok']))
+                    <p class="text-sand-500 text-sm font-mono mt-2 reveal">
+                        Emmanuel17A · {{ $github['public_repos'] }} public repositories + private work
+                    </p>
+                @endif
+            </div>
+            <a href="https://github.com/Emmanuel17A" target="_blank" rel="noopener" class="btn-outline reveal">
+                View my work on GitHub &rarr;
+            </a>
+        </div>
+
+        @if(!empty($github['api_ok']))
+            {{-- Stats row --}}
+            <div class="flex flex-wrap items-center gap-8 mb-10 pb-8 border-b border-obsidian-border reveal">
+                <div>
+                    <p class="font-display text-3xl text-sand-100">{{ $github['public_repos'] }}</p>
+                    <p class="text-xs uppercase tracking-widest text-sand-600 mt-1">Public Repos</p>
+                </div>
+                <div>
+                    <p class="font-display text-3xl text-sand-100">{{ $github['followers'] }}</p>
+                    <p class="text-xs uppercase tracking-widest text-sand-600 mt-1">Followers</p>
+                </div>
+                @if(!empty($github['top_langs']))
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-sand-600 mb-2">Top Languages</p>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach($github['top_langs'] as $lang)
+                            <span class="skill-tag text-xs">{{ $lang }}</span>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            {{-- Recent repositories --}}
+            @if(!empty($github['recent_repos']))
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+                @foreach($github['recent_repos'] as $repo)
+                <div class="service-card flex flex-col justify-between">
+                    <div class="service-card-accent"></div>
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-2">
+                            <h3 class="font-display text-xl text-sand-100 leading-tight">{{ $repo['name'] }}</h3>
+                            @if(($repo['stars'] ?? 0) > 0)
+                                <span class="text-xs font-mono text-sand-500 flex-shrink-0">&starf; {{ $repo['stars'] }}</span>
+                            @else
+                                <span class="text-xs font-mono text-sand-700 flex-shrink-0">&star; 0</span>
+                            @endif
+                        </div>
+                        <p class="text-sand-500 text-sm leading-relaxed mb-4">
+                            {{ $repo['description'] ? \Illuminate\Support\Str::limit($repo['description'], 80) : 'No description provided.' }}
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-obsidian-border mt-2">
+                        @if(!empty($repo['language']))
+                            <span class="skill-tag text-xs py-0.5 px-2">{{ $repo['language'] }}</span>
+                        @else
+                            <span class="text-xs font-mono text-sand-700">Code</span>
+                        @endif
+                        <a href="{{ $repo['url'] }}" target="_blank" rel="noopener" class="text-xs font-mono text-sand-400 hover:text-sand-100 transition-colors">
+                            View &rarr;
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+        @else
+            <div class="service-card max-w-xl reveal">
+                <p class="text-sand-400 text-sm mb-4">Explore my public repositories and open-source work directly on GitHub.</p>
+                <a href="https://github.com/Emmanuel17A" target="_blank" rel="noopener" class="text-sm font-mono text-sand-300 hover:text-sand-100 transition-colors">
+                    View my work on GitHub &rarr;
+                </a>
+            </div>
+        @endif
     </div>
 </section>
 

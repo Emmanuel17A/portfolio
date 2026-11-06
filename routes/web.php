@@ -32,10 +32,7 @@ Route::get('/contact',  [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Sitemap
-Route::get('/sitemap.xml', function () {
-    $content = view('sitemap');
-    return response($content, 200, ['Content-Type' => 'application/xml']);
-})->name('sitemap');
+Route::get('/sitemap.xml', [StaticPageController::class, 'sitemap'])->name('sitemap');
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +69,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Experience
         Route::get('/experiences', [Admin\ExperienceController::class, 'index'])->name('experiences.index');
+
+        // Settings
+        Route::get('/settings', [Admin\SettingController::class, 'index'])->name('settings.index');
+        Route::post('/settings', [Admin\SettingController::class, 'update'])->name('settings.update');
 
         // CV Upload
         Route::post('/cv/upload', [Admin\CvController::class, 'upload'])->name('cv.upload');

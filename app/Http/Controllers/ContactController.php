@@ -27,7 +27,7 @@ class ContactController extends Controller
 
         $validated = $request->validate([
             'name'              => ['required', 'string', 'min:2', 'max:100'],
-            'email'             => ['required', 'email:rfc,dns', 'max:255'],
+            'email'             => ['required', 'email', 'max:255'],
             'subject'           => ['required', 'string', 'min:5', 'max:200'],
             'project_category'  => ['nullable', 'string', 'in:web_app,api_backend,automation,consultation,maintenance,other'],
             'budget'            => ['nullable', 'string', 'in:under_500,500_2000,2000_5000,over_5000'],
@@ -57,7 +57,7 @@ class ContactController extends Controller
                     "Budget: {$validated['budget']}\n\n" .
                     $validated['message'],
                     function ($mail) use ($validated) {
-                        $mail->to(config('app.admin_email', 'admin@example.com'))
+                        $mail->to(config('app.admin_email', 'emmanuelmwangata26@gmail.com'))
                              ->subject('New Portfolio Enquiry: ' . $validated['subject'])
                              ->replyTo($validated['email'], $validated['name']);
                     }

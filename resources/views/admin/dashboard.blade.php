@@ -90,11 +90,19 @@
 {{-- CV Upload --}}
 <div class="mt-10 service-card max-w-md">
     <p class="text-xs uppercase tracking-widest text-sand-600 mb-4">CV / Résumé Upload</p>
+    @php
+        $cvPath = storage_path('app/public/cv/emmanuel-mwangata-cv.pdf');
+    @endphp
+    @if(file_exists($cvPath))
+        <p class="text-xs font-mono text-sand-500 mb-3">
+            Last uploaded: {{ \Carbon\Carbon::createFromTimestamp(\Illuminate\Support\Facades\File::lastModified($cvPath))->format('d M Y, H:i') }}
+        </p>
+    @endif
     <form action="{{ route('admin.cv.upload') }}" method="POST" enctype="multipart/form-data" class="space-y-3">
         @csrf
         <div class="form-field">
             <label for="cv" class="form-label">PDF file (max 10MB)</label>
-            <input type="file" id="cv" name="cv" accept=".pdf" class="form-input text-sm">
+            <input type="file" id="cv" name="cv" accept=".pdf" class="form-input text-sm" required>
         </div>
         <button type="submit" class="btn-outline text-xs py-2">Upload CV</button>
     </form>

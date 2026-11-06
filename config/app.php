@@ -14,7 +14,7 @@ return [
     'faker_locale'    => 'en_US',
     'key'             => env('APP_KEY'),
     'cipher'          => 'AES-256-CBC',
-    'admin_email'     => env('ADMIN_EMAIL', 'admin@example.com'),
+    'admin_email'     => env('ADMIN_EMAIL', 'emmanuelmwangata26@gmail.com'),
 
     'providers' => [
         Illuminate\Auth\AuthServiceProvider::class,
@@ -39,6 +39,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
     ],
 
     'aliases' => Facade::defaultAliases()->merge([

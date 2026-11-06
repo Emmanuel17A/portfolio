@@ -28,6 +28,7 @@
                     ['route' => 'admin.services.index', 'icon' => '◎', 'label' => 'Services'],
                     ['route' => 'admin.experiences.index', 'icon' => '◷', 'label' => 'Experience'],
                     ['route' => 'admin.messages.index', 'icon' => '◉', 'label' => 'Messages'],
+                    ['route' => 'admin.settings.index', 'icon' => '⚙', 'label' => 'Settings'],
                 ];
             @endphp
 
@@ -35,7 +36,12 @@
             <a href="{{ route($item['route']) }}"
                class="admin-sidebar-link {{ request()->routeIs($item['route'] . '*') ? 'active' : '' }}">
                 <span aria-hidden="true" class="font-mono text-xs opacity-70">{{ $item['icon'] }}</span>
-                {{ $item['label'] }}
+                <span>{{ $item['label'] }}</span>
+                @if($item['route'] === 'admin.messages.index' && ($adminUnreadCount ?? 0) > 0)
+                    <span class="ml-auto px-2 py-0.5 text-[10px] font-mono rounded-full bg-sand-400 text-sand-950 font-semibold">
+                        {{ $adminUnreadCount }}
+                    </span>
+                @endif
             </a>
             @endforeach
         </nav>
